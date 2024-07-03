@@ -1,0 +1,32 @@
+using DOTENET.Repositories;
+using DOTENET.Services;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using PROGINETPRIL.IRepositories;
+using PROGINETPRIL.IServices;
+using PROGINETPRIL.Repositories;
+using PROGINETPRIL.Services;
+
+namespace DOTENET
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            CreateHostBuilder(args).Build().Run();
+        }
+
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                })
+        .ConfigureServices(services =>
+        {
+                    services.AddScoped<ISpecialityRepository, SpecialtyRepository>();
+                    services.AddScoped<ISpecialtyService, SpecialtyService>();
+                });
+    }
+}
